@@ -9,7 +9,7 @@ import android.view.View
  */
 public abstract class BaseViewHolder<T> {
 
-    abstract var adapter: MultiTypeListViewAdapter
+    protected var adapter: MultiTypeListViewAdapter? = null
 
     // 获取布局id
     abstract fun getLayoutId(): Int

@@ -21,25 +21,33 @@ public class MultiTypeListViewAdapter extends BaseAdapter {
     private TypePool typePool;
     private LayoutInflater inflater;
 
-    MultiTypeListViewAdapter(Context context) {
+    public MultiTypeListViewAdapter(Context context) {
         this(context, Collections.emptyList());
     }
 
-    MultiTypeListViewAdapter(Context context, List<?> items) {
+    public MultiTypeListViewAdapter(Context context, List<?> items) {
         this(context, items, new MultiTypePool());
     }
 
-    MultiTypeListViewAdapter(Context context, List<?> items, int initialCapacity) {
+    public MultiTypeListViewAdapter(Context context, List<?> items, int initialCapacity) {
         this(context, items, new MultiTypePool(initialCapacity));
     }
 
-    MultiTypeListViewAdapter(Context context, List<?> items, TypePool pool) {
+    public MultiTypeListViewAdapter(Context context, List<?> items, TypePool pool) {
         this.items = items;
         this.typePool = pool;
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
-    <T> void register(Class<? extends T> clazz, BaseViewHolder<T> holder) {
+    public void setItems(List<?> items) {
+        this.items = items;
+    }
+
+    public List<?> getItems() {
+        return items;
+    }
+
+    public <T> void register(Class<? extends T> clazz, BaseViewHolder<T> holder) {
         typePool.register(clazz, holder);
         holder.setAdapter(this);
     }
@@ -64,14 +72,18 @@ public class MultiTypeListViewAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         BaseViewHolder viewHolder = null;
         int viewType = getItemViewType(position);
-        if (convertView == null) {
-            viewHolder = typePool.getBaseViewHolder(viewType);
-            convertView = inflater.inflate(viewHolder.getLayoutId(), parent, false);
-            viewHolder.onBindViewHolder(convertView);
-            convertView.setTag(viewHolder);
-        } else {
-            viewHolder = (BaseViewHolder) convertView.getTag();
-        }
+//        if (convertView == null) {
+//            viewHolder = typePool.getBaseViewHolder(viewType);
+//            convertView = inflater.inflate(viewHolder.getLayoutId(), parent, false);
+//            viewHolder.onBindViewHolder(convertView);
+//            convertView.setTag(viewHolder);
+//        } else {
+//            viewHolder = (BaseViewHolder) convertView.getTag();
+//        }
+        // TODO: 2020/7/25 WSG VH复用问题需解决 
+        viewHolder = typePool.getBaseViewHolder(viewType);
+        convertView = inflater.inflate(viewHolder.getLayoutId(), parent, false);
+        viewHolder.onBindViewHolder(convertView);
         viewHolder.render(getItem(position), position); //渲染
         return convertView;
     }
