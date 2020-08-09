@@ -68,6 +68,6 @@ class MainActivity : AppCompatActivity() {
 }
 ```
 # 实现效果
-![image](https://i.loli.net/2020/08/09/34sa1uLDT2iU7OZ.png)
+![image](https://i.loli.net/2020/08/09/BfMw3CAV4U2Sbl1.png)
 # WIKI
 
