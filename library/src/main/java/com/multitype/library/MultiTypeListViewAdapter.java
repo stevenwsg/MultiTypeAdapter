@@ -70,16 +70,17 @@ public class MultiTypeListViewAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        BaseViewHolder viewHolder = null;
+        BaseViewHolder viewHolder;
         int viewType = getItemViewType(position);
-        if (convertView == null) {
-            viewHolder = typePool.getBaseViewHolder(viewType);
-            convertView = inflater.inflate(viewHolder.getLayoutId(), parent, false);
-            viewHolder.onBindViewHolder(convertView);
-            convertView.setTag(viewHolder);
-        } else {
-            viewHolder = typePool.getBaseViewHolder(viewType);
-        }
+//        if (convertView == null) {
+//
+//            convertView.setTag(viewHolder);
+//        } else {
+//            viewHolder = typePool.getBaseViewHolder(viewType);
+//        }
+        viewHolder = typePool.getBaseViewHolder(viewType);
+        convertView = inflater.inflate(viewHolder.getLayoutId(), parent, false);
+        viewHolder.onBindViewHolder(convertView);
         // TODO: 2020/7/25 WSG VH复用问题需解决
         viewHolder.render(getItem(position), position); //渲染
         return convertView;
